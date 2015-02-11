@@ -7,7 +7,7 @@ class DisplayTime:
     lcd = None
 
     def __init__(self, lcd):
-        self.lcd = lcd
+        DisplayTime.lcd = lcd
 
     @staticmethod
     def run(seconds):

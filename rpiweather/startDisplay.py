@@ -2,7 +2,7 @@
 __author__ = 'mike'
 
 import Adafruit_CharLCD as LCD
-import displayTime as DisplayTimeClass
+from displayTime import DisplayTime
 
 
 # Raspberry Pi pin configuration:
@@ -20,7 +20,9 @@ lcd_rows = 2
 # Initialize the LCD using the pins above.
 lcd = LCD.Adafruit_CharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7, lcd_columns, lcd_rows)
 
-view_time = DisplayTimeClass.DisplayTime(lcd)
+view_time = DisplayTime(lcd)
 
 # while True :
 view_time.run(60)
+
+lcd.clear();
