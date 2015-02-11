@@ -15,7 +15,7 @@ class DisplayTime:
         while seconds > 0:
             DisplayTime.lcd.home()
             DisplayTime.lcd.message(strftime("%H:%M:%S") + '\n' + strftime("%Y-%m-%d"))
-            time.sleep(0.8)  # Print a two line message
+            time.sleep(1.0)
             seconds = (seconds - 1)
 
 
