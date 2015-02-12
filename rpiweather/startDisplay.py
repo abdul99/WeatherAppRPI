@@ -3,6 +3,7 @@ __author__ = 'mike'
 
 import Adafruit_CharLCD as LCD
 from displayTime import DisplayTime
+from displayWeather import DisplayWeather
 
 
 # Raspberry Pi pin configuration:
@@ -21,8 +22,10 @@ lcd_rows = 2
 lcd = LCD.Adafruit_CharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7, lcd_columns, lcd_rows)
 
 view_time = DisplayTime(lcd)
+view_weather = DisplayWeather(lcd)
 
 while True:
-    view_time.run(60)
+    view_time.run(30)
+    view_weather.run(30)
 
 lcd.clear();

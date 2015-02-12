@@ -9,8 +9,7 @@ class DisplayTime:
     def __init__(self, lcd):
         DisplayTime.lcd = lcd
 
-    @staticmethod
-    def run(seconds):
+    def run(self, seconds):
         DisplayTime.lcd.clear()
         while seconds > 0:
             DisplayTime.lcd.home()
