@@ -12,7 +12,7 @@ class DisplayInfo:
     def __init__(self, lcd):
         DisplayInfo.lcd = lcd
 
-    def get_ip_address(ifname):
+    def get_ip_address(self,ifname):
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         return socket.inet_ntoa(fcntl.ioctl(
             s.fileno(),

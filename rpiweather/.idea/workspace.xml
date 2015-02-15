@@ -93,8 +93,8 @@
         <option value="$PROJECT_DIR$/displayTime.py" />
         <option value="$PROJECT_DIR$/displayWeather.py" />
         <option value="$PROJECT_DIR$/displayUtils.py" />
-        <option value="$PROJECT_DIR$/displayInfo.py" />
         <option value="$PROJECT_DIR$/startDisplay.py" />
+        <option value="$PROJECT_DIR$/displayInfo.py" />
       </list>
     </option>
   </component>
