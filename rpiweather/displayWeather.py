@@ -1,3 +1,4 @@
+from numpy.core.tests.test_numerictypes import test_create_values_nested_multiple
 import pywapi
 import string
 import time
@@ -11,14 +12,47 @@ class DisplayWeather:
     def __init__(self, lcd):
         DisplayWeather.lcd = lcd
 
-    def run(self, seconds):
+    def run(self):
         DisplayWeather.lcd.clear()
+
+        # request NOAA weather data
         noaa_result = pywapi.get_weather_from_noaa('KOWD')
         print(noaa_result)
-        # Only print the first 16 chars of each string
-        DisplayWeather.lcd.message(string.lower(noaa_result['weather'])[:16]+'\n')
-        DisplayWeather.lcd.message(string.lower(noaa_result['temperature_string'])[:16])
-        time.sleep(seconds)
+
+        # pull out string that I want
+        weather_string = string.lower(noaa_result['weather'])+'\n'
+        temp_string = string.lower(noaa_result['temperature_string'])
+
+        # display first 16 chars of each
+        DisplayWeather.lcd.message(weather_string)
+        DisplayWeather.lcd.message(temp_string)
+
+        maxLength = 0
+        if len(weather_string) > len(temp_string):
+            maxLength = len(weather_string)
+        else:
+            maxLength = len(temp_string)
+
+        # scroll both directions twice
+        for i in range(1):
+            if maxLength > 16:
+                # move lcd all the way right
+                for i in range(maxLength):
+                    time.sleep(0.5)
+                    DisplayWeather.lcd.move_right()
+                # move lcd all the way left
+                for i in range(maxLength):
+                    time.sleep(0.5)
+                    DisplayWeather.lcd.move_left()
+
+            # for i in range(maxLength):
+            #     time.sleep(0.5)
+            #     DisplayWeather.lcd.home() # cursor to top left corner
+            #     DisplayWeather.lcd.clear()
+            #     DisplayWeather.lcd.message(weather_string[i:i+16])
+            #     DisplayWeather.lcd.message(temp_string[i:i+16])
+
+
 
 # sample JSON return from noaa_result
 # {'weather': u'Light Snow Freezing Fog', 'windchill_c': u'-8', 'ob_url': u'http://www.weather.gov/data/METAR/KOWD.1.txt',
@@ -32,3 +66,11 @@ class DisplayWeather:
 #  'suggested_pickup': u'15 minutes after the hour', 'relative_humidity': u'88',
 #  'observation_time_rfc822': u'Sat, 14 Feb 2015 16:53:00 -0500'}
 
+#message = 'Scroll'
+#lcd.message(message)
+#for i in range(lcd_columns-len(message)):
+#	time.sleep(0.5)
+#	lcd.move_right()
+#for i in range(lcd_columns-len(message)):
+#	time.sleep(0.5)
+#	lcd.move_left()

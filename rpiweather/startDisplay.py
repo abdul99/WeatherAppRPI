@@ -25,7 +25,7 @@ view_time = DisplayTime(lcd)
 view_weather = DisplayWeather(lcd)
 
 while True:
-    view_time.run(30)
-    view_weather.run(30)
+    view_time.run(10)
+    view_weather.run()
 
 lcd.clear();
