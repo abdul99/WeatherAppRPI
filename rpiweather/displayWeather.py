@@ -37,11 +37,11 @@ class DisplayWeather:
         for i in range(1):
             if maxLength > 16:
                 # move lcd text all the way left
-                for i in range(maxLength):
+                for i in range(maxLength-16):
                     time.sleep(0.5)
                     DisplayWeather.lcd.move_left()
                 # move lcd text back to original position
-                for i in range(maxLength):
+                for i in range(maxLength-16):
                     time.sleep(0.5)
                     DisplayWeather.lcd.move_right()
 
