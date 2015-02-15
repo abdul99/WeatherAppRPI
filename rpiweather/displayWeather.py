@@ -25,33 +25,42 @@ class DisplayWeather:
         ## PAGE 1
         # pull out string that I want
         if 'weather' in noaa_result:
-            weather_string = string.lower(noaa_result['weather']) + '\n'
+            weather_string = string.lower(noaa_result['weather'])
         else:
-            weather_string = 'n/a' + '\n'
+            weather_string = 'n/a'
 
         if 'temperature_string' in noaa_result:
             temp_string = string.lower(noaa_result['temperature_string'])
         else:
-            temp_string = 'n/a' + '\n'
+            temp_string = 'n/a'
 
         # use my util class to display nicely
-        DisplayWeather.lcdUtils.backAndForth(weather_string, temp_string, 3)
+        DisplayWeather.lcdUtils.backAndForth(weather_string, temp_string, 2)
 
         DisplayWeather.lcd.clear()
 
         ## PAGE 2
         # pull out more data
         if 'wind_string' in noaa_result:
-            wind_string = string.lower('wind: ' + noaa_result['wind_string']) + '\n'
+            wind_string = string.lower('wind: ' + noaa_result['wind_string'])
         else:
-            wind_string = 'n/a' + '\n'
+            # fallback
+            if 'wind_mph' and 'wind_dir' in noaa_result:
+                wind_string = string.lower(
+                    'wind: ' + noaa_result['wind_dir'] + " at " + noaa_result['wind_mph'] + ' mph')
+            else:
+                wind_string = 'n/a'
 
         if 'windchill_string' in noaa_result:
             windchill_string = string.lower('windchill: ' + noaa_result['windchill_string'])
         else:
-            windchill_string = 'n/a' + '\n'
+            # fallback
+            if 'dewpoint_string' in noaa_result:
+                windchill_string = string.lower('dewpoint: ' + noaa_result['dewpoint_string'])
+            else:
+                windchill_string = 'n/a'
 
-        DisplayWeather.lcdUtils.backAndForth(wind_string, windchill_string, 3)
+        DisplayWeather.lcdUtils.backAndForth(wind_string, windchill_string, 2)
 
 
 # sample JSON return from noaa_result
@@ -64,13 +73,13 @@ class DisplayWeather:
 # 'two_day_history_url': u'http://www.weather.gov/data/obhistory/KOWD.html', 'wind_dir': u'East', 'wind_degrees': u'70',
 # 'observation_time': u'Last Updated on Feb 14 2015, 4:53 pm EST', 'longitude': u'-71.17389',
 # 'suggested_pickup': u'15 minutes after the hour', 'relative_humidity': u'88',
-#  'observation_time_rfc822': u'Sat, 14 Feb 2015 16:53:00 -0500'}
+# 'observation_time_rfc822': u'Sat, 14 Feb 2015 16:53:00 -0500'}
 
 # {'icon_url_name': u'sn.png', 'weather': u'Light Snow Fog/Mist',
-#  'ob_url': u'http://www.weather.gov/data/METAR/KOWD.1.txt', 'pressure_mb': u'1002.2',
-#  'dewpoint_string': u'21.9 F (-5.6 C)', 'suggested_pickup_period': u'60', 'dewpoint_f': u'21.9',
-#  'location': u'Norwood, Norwood Memorial Airport, MA', 'dewpoint_c': u'-5.6', 'latitude': u'42.19083',
-#  'wind_mph': u'0.0', 'temp_f': u'24.0', 'temp_c': u'-4.4', 'pressure_string': u'1002.2 mb', 'station_id': u'KOWD',
+# 'ob_url': u'http://www.weather.gov/data/METAR/KOWD.1.txt', 'pressure_mb': u'1002.2',
+# 'dewpoint_string': u'21.9 F (-5.6 C)', 'suggested_pickup_period': u'60', 'dewpoint_f': u'21.9',
+# 'location': u'Norwood, Norwood Memorial Airport, MA', 'dewpoint_c': u'-5.6', 'latitude': u'42.19083',
+# 'wind_mph': u'0.0', 'temp_f': u'24.0', 'temp_c': u'-4.4', 'pressure_string': u'1002.2 mb', 'station_id': u'KOWD',
 #  'wind_string': u'Calm', 'pressure_in': u'29.59', 'temperature_string': u'24.0 F (-4.4 C)',
 #  'two_day_history_url': u'http://www.weather.gov/data/obhistory/KOWD.html', 'wind_dir': u'North', 'wind_degrees': u'0',
 #  'icon_url_base': u'http://forecast.weather.gov/images/wtf/small/',

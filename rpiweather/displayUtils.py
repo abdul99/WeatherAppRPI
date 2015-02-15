@@ -13,7 +13,7 @@ class DisplayUtils:
     def backAndForth(self, line1, line2, repeat):
 
         # display first 16 chars of each
-        DisplayUtils.lcd.message(line1)
+        DisplayUtils.lcd.message(line1 + '\n')
         DisplayUtils.lcd.message(line2)
 
         # max scrolling length is longest line
