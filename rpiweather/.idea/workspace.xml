@@ -28,8 +28,20 @@
         <entry file="file://$PROJECT_DIR$/displayTime.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
-              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <caret line="8" column="18" selection-start-line="5" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="displayInfo.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/displayInfo.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.44469783" vertical-offset="0" max-vertical-offset="877">
+              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <folding>
+                <element signature="e#21#34#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -46,10 +58,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="displayUtils.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="displayUtils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/displayUtils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5131129" vertical-offset="0" max-vertical-offset="877">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
               <caret line="30" column="46" selection-start-line="30" selection-start-column="46" selection-end-line="30" selection-end-column="46" />
               <folding />
             </state>
@@ -59,8 +71,8 @@
       <file leaf-file-name="startDisplay.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/startDisplay.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
-              <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+              <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
               <folding>
                 <element signature="e#39#69#0" expanded="true" />
               </folding>
@@ -78,10 +90,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/startDisplay.py" />
         <option value="$PROJECT_DIR$/displayTime.py" />
         <option value="$PROJECT_DIR$/displayWeather.py" />
         <option value="$PROJECT_DIR$/displayUtils.py" />
+        <option value="$PROJECT_DIR$/displayInfo.py" />
+        <option value="$PROJECT_DIR$/startDisplay.py" />
       </list>
     </option>
   </component>
@@ -419,20 +432,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/startDisplay.py">
+    <entry file="file://$PROJECT_DIR$/displayUtils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="555">
-          <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
-          <folding>
-            <element signature="e#39#69#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
+          <caret line="30" column="46" selection-start-line="30" selection-start-column="46" selection-end-line="30" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/displayTime.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="360">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <caret line="8" column="18" selection-start-line="5" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -447,11 +458,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/displayUtils.py">
+    <entry file="file://$PROJECT_DIR$/startDisplay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5131129" vertical-offset="0" max-vertical-offset="877">
-          <caret line="30" column="46" selection-start-line="30" selection-start-column="46" selection-end-line="30" selection-end-column="46" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+          <caret line="32" column="21" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
+          <folding>
+            <element signature="e#39#69#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/displayInfo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44469783" vertical-offset="0" max-vertical-offset="877">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding>
+            <element signature="e#21#34#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

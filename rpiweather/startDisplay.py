@@ -4,6 +4,7 @@ __author__ = 'mike'
 import Adafruit_CharLCD as LCD
 from displayTime import DisplayTime
 from displayWeather import DisplayWeather
+from displayInfo import DisplayInfo
 
 
 # Raspberry Pi pin configuration:
@@ -23,9 +24,11 @@ lcd = LCD.Adafruit_CharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7, lcd_c
 
 view_time = DisplayTime(lcd)
 view_weather = DisplayWeather(lcd)
+view_info = DisplayInfo(lcd)
 
+# This pages through the different screen info pages
 while True:
     view_time.run(10)
     view_weather.run()
+    view_info.run(10)
 
-lcd.clear();
