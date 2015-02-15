@@ -21,6 +21,6 @@ class DisplayInfo:
         )[20:24])
 
     def run(self, seconds):
-        print DisplayInfo.get_ip_address('wlan0')
-        print DisplayInfo.get_ip_address('eth0')
+        print self.get_ip_address('wlan0')
+        print self.get_ip_address('eth0')
         # time.sleep(seconds)
