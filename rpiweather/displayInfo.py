@@ -1,4 +1,5 @@
 __author__ = 'mike'
+# get the current connected ip address and display it to the connected lcd
 
 import socket
 import fcntl
@@ -24,6 +25,7 @@ class DisplayInfo:
     def run(self, seconds):
         self.lcd.clear()
         try:
+            self.ip_string = ''
             print self.get_ip_address('wlan0')
             self.ip_string = self.get_ip_address('wlan0')
         except IOError:

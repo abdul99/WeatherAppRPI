@@ -1,7 +1,8 @@
-#!/usr/bin/python
-# Example using a character LCD connected to a Raspberry Pi or BeagleBone Black.
+__author__ = 'mike'
+# Display the current time to the lcd for the given number of seconds
 import time
 from time import strftime
+
 
 class DisplayTime:
     lcd = None

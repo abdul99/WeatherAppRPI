@@ -1,5 +1,7 @@
+# custom lcd utilities for rpi connected LCD
 __author__ = 'mike'
 import time
+
 
 class DisplayUtils:
     lcd = None
