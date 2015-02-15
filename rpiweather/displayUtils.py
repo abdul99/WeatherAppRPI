@@ -10,13 +10,13 @@ class DisplayUtils:
 
 
     def __init__(self, lcd):
-        DisplayUtils.lcd = lcd
+        self.lcd = lcd
 
     def backAndForth(self, line1, line2, repeat):
 
         # display first 16 chars of each
-        DisplayUtils.lcd.message(line1 + '\n')
-        DisplayUtils.lcd.message(line2)
+        self.lcd.message(line1 + '\n')
+        self.lcd.message(line2)
 
         # max scrolling length is longest line
         maxLength = 0
@@ -28,14 +28,16 @@ class DisplayUtils:
         # scroll both directions 'repeat' number of times
         for i in range(repeat):
             if maxLength > 16:
-                time.sleep(DisplayUtils.pauseTime)  # small pause before moving
+                time.sleep(self.pauseTime)  # small pause before moving
                 # move lcd text all the way left
                 for i in range(maxLength - 16):
-                    time.sleep(DisplayUtils.scrollSpeed)
-                    DisplayUtils.lcd.move_left()
+                    time.sleep(self.scrollSpeed)
+                    self.lcd.move_left()
 
-                time.sleep(DisplayUtils.pauseTime)  # small pause before moving back
+                time.sleep(self.pauseTime)  # small pause before moving back
                 # move lcd text back to original position
                 for i in range(maxLength - 16):
-                    time.sleep(DisplayUtils.scrollSpeed)
-                    DisplayUtils.lcd.move_right()
+                    time.sleep(self.scrollSpeed)
+                    self.lcd.move_right()
+            else:
+                time.sleep(self.pauseTime ** 2)
