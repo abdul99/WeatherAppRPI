@@ -8,9 +8,10 @@ import time
 
 class DisplayInfo:
     lcd = None
+    ip_string = ''
 
     def __init__(self, lcd):
-        DisplayInfo.lcd = lcd
+        self.lcd = lcd
 
     def get_ip_address(self, ifname):
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -21,13 +22,25 @@ class DisplayInfo:
         )[20:24])
 
     def run(self, seconds):
+        self.lcd.clear()
         try:
             print self.get_ip_address('wlan0')
+            self.ip_string = self.get_ip_address('wlan0')
         except IOError:
+            self.ip_string = ''
             print 'no such device: wlan0'
 
-        try:
-            print self.get_ip_address('eth0')
-        except IOError:
-            print 'no such device: eth0'
-            # time.sleep(seconds)
+            # failover
+            try:
+                print "ip: " + self.get_ip_address('eth0')
+                self.ip_string = self.get_ip_address('eth0')
+            except IOError:
+                self.ip_string = ''
+                print 'no such device: eth0'
+
+        # print results
+        if self.ip_string == '':
+            self.lcd.message('No Connections')
+        else:
+            self.lcd.message('ip: ' + self.ip_string)
+        time.sleep(seconds)

@@ -7,13 +7,13 @@ class DisplayTime:
     lcd = None
 
     def __init__(self, lcd):
-        DisplayTime.lcd = lcd
+        self.lcd = lcd
 
     def run(self, seconds):
-        DisplayTime.lcd.clear()
+        self.lcd.clear()
         while seconds > 0:
-            DisplayTime.lcd.home()
-            DisplayTime.lcd.message(strftime("%H:%M:%S") + '\n' + strftime("%Y-%m-%d"))
+            self.lcd.home()
+            self.lcd.message(strftime("%H:%M:%S") + '\n' + strftime("%Y-%m-%d"))
             time.sleep(1.0)
             seconds = (seconds - 1)
 

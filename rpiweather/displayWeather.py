@@ -12,11 +12,11 @@ class DisplayWeather:
     lcdUtils = None
 
     def __init__(self, lcd):
-        DisplayWeather.lcd = lcd
-        DisplayWeather.lcdUtils = DisplayUtils(lcd)
+        self.lcd = lcd
+        self.lcdUtils = DisplayUtils(lcd)
 
     def run(self):
-        DisplayWeather.lcd.clear()
+        self.lcd.clear()
 
         # request NOAA weather data
         noaa_result = pywapi.get_weather_from_noaa('KOWD')
@@ -35,9 +35,9 @@ class DisplayWeather:
             temp_string = 'n/a'
 
         # use my util class to display nicely
-        DisplayWeather.lcdUtils.backAndForth(weather_string, temp_string, 2)
+        self.lcdUtils.backAndForth(weather_string, temp_string, 2)
 
-        DisplayWeather.lcd.clear()
+        self.lcd.clear()
 
         ## PAGE 2
         # pull out more data
@@ -52,15 +52,15 @@ class DisplayWeather:
                 wind_string = 'n/a'
 
         if 'windchill_string' in noaa_result:
-            windchill_string = string.lower('windchill: ' + noaa_result['windchill_string'])
+            windchill_string = string.lower('wchill: ' + noaa_result['windchill_string'])
         else:
             # fallback
             if 'dewpoint_string' in noaa_result:
-                windchill_string = string.lower('dewpoint: ' + noaa_result['dewpoint_string'])
+                windchill_string = string.lower('dewpnt: ' + noaa_result['dewpoint_string'])
             else:
                 windchill_string = 'n/a'
 
-        DisplayWeather.lcdUtils.backAndForth(wind_string, windchill_string, 2)
+        self.lcdUtils.backAndForth(wind_string, windchill_string, 2)
 
 
 # sample JSON return from noaa_result
