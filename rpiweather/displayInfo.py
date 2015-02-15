@@ -12,7 +12,7 @@ class DisplayInfo:
     def __init__(self, lcd):
         DisplayInfo.lcd = lcd
 
-    def get_ip_address(self,ifname):
+    def get_ip_address(self, ifname):
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         return socket.inet_ntoa(fcntl.ioctl(
             s.fileno(),
@@ -21,6 +21,13 @@ class DisplayInfo:
         )[20:24])
 
     def run(self, seconds):
-        print self.get_ip_address('wlan0')
-        print self.get_ip_address('eth0')
-        # time.sleep(seconds)
+        try:
+            print self.get_ip_address('wlan0')
+        except IOError:
+            print 'no such device: wlan0'
+
+        try:
+            print self.get_ip_address('eth0')
+        except IOError:
+            print 'no such device: eth0'
+            # time.sleep(seconds)
