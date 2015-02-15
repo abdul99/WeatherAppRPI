@@ -28,35 +28,16 @@ class DisplayWeather:
         temp_string = string.lower(noaa_result['temperature_string'])
 
         # use my util class to display nicely
-        DisplayWeather.lcdUtils.backAndForth(weather_string,temp_string,3)
+        DisplayWeather.lcdUtils.backAndForth(weather_string, temp_string, 3)
 
+        DisplayWeather.lcd.clear()
 
-        # # display first 16 chars of each
-        # DisplayWeather.lcd.message(weather_string)
-        # DisplayWeather.lcd.message(temp_string)
-        #
-        # maxLength = 0
-        # if len(weather_string) > len(temp_string):
-        #     maxLength = len(weather_string)
-        # else:
-        #     maxLength = len(temp_string)
-        #
-        # # scroll both directions 3 times
-        # for i in range(3):
-        #     if maxLength > 16:
-        #         time.sleep(2.0)  # small pause before moving
-        #         # move lcd text all the way left
-        #         for i in range((maxLength - 16) - 1):
-        #             time.sleep(0.7)
-        #             DisplayWeather.lcd.move_left()
-        #         time.sleep(1.0)  # small pause before moving back
-        #         # move lcd text back to original position
-        #         for i in range((maxLength - 16) - 1):
-        #             time.sleep(0.7)
-        #             DisplayWeather.lcd.move_right()
+        ## PAGE 2
+        # pull out more data
+        wind_string = string.lower('wind: ' + noaa_result['wind_string']) + '\n'
+        windchill_string = string.lower('windchill: ' + noaa_result['windchill_string'])
 
-
-
+        DisplayWeather.lcdUtils.backAndForth(wind_string,windchill_string,3)
 
 
 # sample JSON return from noaa_result
@@ -66,7 +47,7 @@ class DisplayWeather:
 # 'dewpoint_c': u'-6.7', 'latitude': u'42.19083', 'wind_mph': u'4.6', 'temp_f': u'23.0', 'temp_c': u'-5.0',
 # 'pressure_string': u'1004.6 mb', 'windchill_string': u'17 F (-8 C)', 'station_id': u'KOWD',
 # 'wind_string': u'East at 4.6 MPH (4 KT)', 'pressure_in': u'29.66', 'temperature_string': u'23.0 F (-5.0 C)',
-#  'two_day_history_url': u'http://www.weather.gov/data/obhistory/KOWD.html', 'wind_dir': u'East', 'wind_degrees': u'70',
+# 'two_day_history_url': u'http://www.weather.gov/data/obhistory/KOWD.html', 'wind_dir': u'East', 'wind_degrees': u'70',
 #  'observation_time': u'Last Updated on Feb 14 2015, 4:53 pm EST', 'longitude': u'-71.17389',
 #  'suggested_pickup': u'15 minutes after the hour', 'relative_humidity': u'88',
 #  'observation_time_rfc822': u'Sat, 14 Feb 2015 16:53:00 -0500'}

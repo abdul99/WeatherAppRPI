@@ -17,18 +17,3 @@ class DisplayTime:
             time.sleep(1.0)
             seconds = (seconds - 1)
 
-
-# Demo showing the cursor.
-#lcd.show_cursor(True)
-#lcd.blink(True)
-
-# Demo scrolling message right/left.
-#lcd.clear()
-#message = 'Scroll'
-#lcd.message(message)
-#for i in range(lcd_columns-len(message)):
-#	time.sleep(0.5)
-#	lcd.move_right()
-#for i in range(lcd_columns-len(message)):
-#	time.sleep(0.5)
-#	lcd.move_left()
