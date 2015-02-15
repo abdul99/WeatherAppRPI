@@ -12,11 +12,12 @@ class DisplayUtils:
     def __init__(self, lcd):
         self.lcd = lcd
 
+
     def backAndForth(self, line1, line2, repeat):
 
-        # display first 16 chars of each
-        self.lcd.message(line1 + '\n')
-        self.lcd.message(line2)
+        # display first 16 chars of each maximum of 32
+        self.lcd.message(line1[:32] + '\n')
+        self.lcd.message(line2[:32])
 
         # max scrolling length is longest line
         maxLength = 0
