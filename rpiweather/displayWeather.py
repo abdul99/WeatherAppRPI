@@ -36,14 +36,14 @@ class DisplayWeather:
         # scroll both directions twice
         for i in range(1):
             if maxLength > 16:
-                # move lcd all the way right
-                for i in range(maxLength):
-                    time.sleep(0.5)
-                    DisplayWeather.lcd.move_right()
-                # move lcd all the way left
+                # move lcd text all the way left
                 for i in range(maxLength):
                     time.sleep(0.5)
                     DisplayWeather.lcd.move_left()
+                # move lcd text back to original position
+                for i in range(maxLength):
+                    time.sleep(0.5)
+                    DisplayWeather.lcd.move_right()
 
             # for i in range(maxLength):
             #     time.sleep(0.5)
