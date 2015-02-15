@@ -28,12 +28,12 @@ class DisplayUtils:
             if maxLength > 16:
                 time.sleep(DisplayUtils.pauseTime)  # small pause before moving
                 # move lcd text all the way left
-                for i in range((maxLength - 16) - 1):
+                for i in range(maxLength - 16):
                     time.sleep(DisplayUtils.scrollSpeed)
                     DisplayUtils.lcd.move_left()
 
                 time.sleep(DisplayUtils.pauseTime)  # small pause before moving back
                 # move lcd text back to original position
-                for i in range((maxLength - 16) - 1):
+                for i in range(maxLength - 16):
                     time.sleep(DisplayUtils.scrollSpeed)
                     DisplayUtils.lcd.move_right()
