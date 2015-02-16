@@ -23,10 +23,11 @@ class DisplayUtils:
             maxLength = len(line2)
 
         # no larger than 32 chars
-        if maxLength >= 25:
+        if maxLength > 32:
             # display first 16 chars of each maximum of 32
-            self.lcd.message(line1[:25] + '\n')
-            self.lcd.message(line2[:25])
+            self.lcd.message(line1[:32] + '\n')
+            self.lcd.message(line2[:32])
+            maxLength = 32 # adjust as we have just changed the maximum length
         else:
             self.lcd.message(line1 + '\n')
             self.lcd.message(line2)
