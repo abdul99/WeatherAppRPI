@@ -36,16 +36,21 @@ class DisplayUtils:
         # scroll both directions 'repeat' number of times
         for i in range(repeat):
             if maxLength > 16:
+
                 time.sleep(self.pauseTime)  # small pause before moving
+
                 # move lcd text all the way left
                 for i in range(maxLength - 16):
                     time.sleep(self.scrollSpeed)
                     self.lcd.move_left()
 
                 time.sleep(self.pauseTime)  # small pause before moving back
+
                 # move lcd text back to original position
                 for i in range(maxLength - 16):
                     time.sleep(self.scrollSpeed)
                     self.lcd.move_right()
+
+                time.sleep(self.pauseTime)  # small pause before moving
             else:
-                time.sleep(self.pauseTime ** 2)
+                time.sleep(self.pauseTime ** 3)
