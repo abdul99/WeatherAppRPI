@@ -5,7 +5,7 @@ import time
 
 class DisplayUtils:
     lcd = None
-    scrollSpeed = 0.7
+    scrollSpeed = 0.5
     pauseTime = 2.0
 
 
@@ -15,16 +15,22 @@ class DisplayUtils:
 
     def backAndForth(self, line1, line2, repeat):
 
-        # display first 16 chars of each maximum of 32
-        self.lcd.message(line1[:32] + '\n')
-        self.lcd.message(line2[:32])
-
         # max scrolling length is longest line
         maxLength = 0
         if len(line1) > len(line2):
             maxLength = len(line1)
         else:
             maxLength = len(line2)
+
+        # no larger than 32 chars
+        if maxLength >= 32:
+            # display first 16 chars of each maximum of 32
+            self.lcd.message(line1[:32] + '\n')
+            self.lcd.message(line2[:32])
+        else:
+            self.lcd.message(line1 + '\n')
+            self.lcd.message(line2)
+
 
         # scroll both directions 'repeat' number of times
         for i in range(repeat):
