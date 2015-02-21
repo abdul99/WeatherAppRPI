@@ -2,6 +2,7 @@
 __author__ = 'mike'
 
 import Adafruit_CharLCD as LCD
+import RPi.GPIO as GPIO
 from displayTime import DisplayTime
 from displayWeather import DisplayWeather
 from displayInfo import DisplayInfo
@@ -21,6 +22,15 @@ lcd_rows = 2
 
 # Initialize the LCD using the pins above.
 lcd = LCD.Adafruit_CharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7, lcd_columns, lcd_rows)
+
+# Initialize LEDs and buttons
+GPIO.setmode(GPIO.BCM)
+
+led1 = 29
+led2 = 28
+GPIO.setup(led1,GPIO.OUT)
+
+GPIO.output(led1,True) ## turn on by default
 
 # Display objects
 view_time = DisplayTime(lcd)
