@@ -29,8 +29,10 @@ GPIO.setmode(GPIO.BCM)
 led1 = 29
 led2 = 28
 GPIO.setup(led1,GPIO.OUT)
+GPIO.setup(led2,GPIO.OUT)
 
 GPIO.output(led1,True) ## turn on by default
+GPIO.output(led2,True)
 
 # Display objects
 view_time = DisplayTime(lcd)
