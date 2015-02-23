@@ -1,4 +1,6 @@
 #!/usr/bin/python
+from operator import pos
+
 __author__ = 'mike'
 
 import Adafruit_CharLCD as LCD
@@ -55,17 +57,36 @@ view_info = DisplayInfo(lcd)
 
 led1ON = True
 led2ON = True
+GPIO.output(led1, led1ON)
+GPIO.output(led2, led2ON)
+
+back = False
+fwrd = False
 # This pages through the different screen info pages
+options = {0 : view_time.run(1),
+           1 : view_weather.run(),
+           2 : view_info.run(1)}
+position = 0 #default starting position
 while True:
+
+    if GPIO.event_detected(btn1):
+        position = position - 1
+        if position < 0:
+            position = 2
+
+    if GPIO.event_detected(btn2):
+        position = position + 1
+        if position > 2:
+            position = 0
+
+    options[position]()
+
     # view_time.run(10)
     # view_weather.run()
     # view_info.run(10)
-    if GPIO.event_detected(btn1):
-        led1ON = not (led1ON)
-    if GPIO.event_detected(btn2):
-        led2ON = not (led2ON)
 
-    GPIO.output(led1, led1ON)
-    GPIO.output(led2, led2ON)
+
+
+
 
 
