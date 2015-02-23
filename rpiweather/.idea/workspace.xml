@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e1c420a2-7866-4fdf-b3a0-beb1566361f2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/startDisplay.py" afterPath="$PROJECT_DIR$/startDisplay.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="rpiweather.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -74,8 +73,8 @@
       <file leaf-file-name="startDisplay.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/startDisplay.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.709236" vertical-offset="593" max-vertical-offset="1470">
-              <caret line="81" column="23" selection-start-line="81" selection-start-column="23" selection-end-line="81" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.7776511" vertical-offset="728" max-vertical-offset="1665">
+              <caret line="94" column="23" selection-start-line="94" selection-start-column="23" selection-end-line="94" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -600,8 +599,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/startDisplay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.709236" vertical-offset="593" max-vertical-offset="1470">
-          <caret line="81" column="23" selection-start-line="81" selection-start-column="23" selection-end-line="81" selection-end-column="23" />
+        <state vertical-scroll-proportion="0.7776511" vertical-offset="728" max-vertical-offset="1665">
+          <caret line="94" column="23" selection-start-line="94" selection-start-column="23" selection-end-line="94" selection-end-column="23" />
           <folding />
         </state>
       </provider>

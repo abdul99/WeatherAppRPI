@@ -55,18 +55,31 @@ view_time = DisplayTime(lcd)
 view_weather = DisplayWeather(lcd)
 view_info = DisplayInfo(lcd)
 
+# Turn on LEDs
 led1ON = True
 led2ON = True
 GPIO.output(led1, led1ON)
 GPIO.output(led2, led2ON)
 
-back = False
-fwrd = False
 # This pages through the different screen info pages
-options = {0 : view_time.run(1),
-           1 : view_weather.run(),
-           2 : view_info.run(1)}
-position = 0 #default starting position
+def option0():
+    view_time.run(1)
+
+
+def option1():
+    view_weather.run()
+
+
+def option2():
+    view_info.run(1)
+
+
+options = {0: option0,
+           1: option1,
+           2: option2}
+
+position = 0  # default starting position
+
 while True:
 
     if GPIO.event_detected(btn1):
