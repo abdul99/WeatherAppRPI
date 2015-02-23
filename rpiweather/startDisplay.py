@@ -41,8 +41,8 @@ GPIO.setup(btn1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(btn2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 # setup RISING edge listeners (button released)
-GPIO.add_event_detect(btn1, GPIO.RISING)
-GPIO.add_event_detect(btn2, GPIO.RISING)
+GPIO.add_event_detect(btn1, GPIO.RISING, bouncetime=200)
+GPIO.add_event_detect(btn2, GPIO.RISING, bouncetime=200)
 
 # GPIO.output(led1,True) ## turn on by default
 # GPIO.output(led2,True)
@@ -60,10 +60,10 @@ while True:
     # view_time.run(10)
     # view_weather.run()
     # view_info.run(10)
-    if GPIO.event_detect(btn1):
+    if GPIO.event_detected(btn1):
         led1ON = not (led1ON)
-    if GPIO.event_detect(btn2):
-        led1ON = not (led2ON)
+    if GPIO.event_detected(btn2):
+        led2ON = not (led2ON)
 
     GPIO.output(led1, led1ON)
     GPIO.output(led2, led2ON)
