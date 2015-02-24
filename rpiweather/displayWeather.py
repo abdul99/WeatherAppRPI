@@ -15,53 +15,58 @@ class DisplayWeather:
         self.lcd = lcd
         self.lcdUtils = DisplayUtils(lcd)
 
-    def run(self):
-        self.lcd.clear()
-
+    def run(self, page):
         # request NOAA weather data
         noaa_result = pywapi.get_weather_from_noaa('KOWD')
         print(noaa_result)
 
-        ## PAGE 1
-        # pull out string that I want
-        if 'weather' in noaa_result:
-            weather_string = string.lower(noaa_result['weather'])
-        else:
-            weather_string = 'n/a'
+        if page == 1:
+            self.lcd.clear()
 
-        if 'temperature_string' in noaa_result:
-            temp_string = string.lower(noaa_result['temperature_string'])
-        else:
-            temp_string = 'n/a'
+            # request NOAA weather data
+            noaa_result = pywapi.get_weather_from_noaa('KOWD')
+            print(noaa_result)
 
-        # use my util class to display nicely
-        self.lcdUtils.backAndForth(weather_string, temp_string, 1)
-
-    def run2(self):
-        ## PAGE 2
-        self.lcd.clear()
-
-        # pull out more data
-        if 'wind_string' in noaa_result:
-            wind_string = string.lower('wind: ' + noaa_result['wind_string'])
-        else:
-            # fallback
-            if 'wind_mph' and 'wind_dir' in noaa_result:
-                wind_string = string.lower(
-                    'wind: ' + noaa_result['wind_dir'] + " at " + noaa_result['wind_mph'] + ' mph')
+            # # PAGE 1
+            # pull out string that I want
+            if 'weather' in noaa_result:
+                weather_string = string.lower(noaa_result['weather'])
             else:
-                wind_string = 'n/a'
+                weather_string = 'n/a'
 
-        if 'windchill_string' in noaa_result:
-            windchill_string = string.lower('wchill: ' + noaa_result['windchill_string'])
-        else:
-            # fallback
-            if 'dewpoint_string' in noaa_result:
-                windchill_string = string.lower('dewpnt: ' + noaa_result['dewpoint_string'])
+            if 'temperature_string' in noaa_result:
+                temp_string = string.lower(noaa_result['temperature_string'])
             else:
-                windchill_string = 'n/a'
+                temp_string = 'n/a'
 
-        self.lcdUtils.backAndForth(wind_string, windchill_string, 1)
+            # use my util class to display nicely
+            self.lcdUtils.backAndForth(weather_string, temp_string, 1)
+
+        if page == 2:
+            # # PAGE 2
+            self.lcd.clear()
+
+            # pull out more data
+            if 'wind_string' in noaa_result:
+                wind_string = string.lower('wind: ' + noaa_result['wind_string'])
+            else:
+                # fallback
+                if 'wind_mph' and 'wind_dir' in noaa_result:
+                    wind_string = string.lower(
+                        'wind: ' + noaa_result['wind_dir'] + " at " + noaa_result['wind_mph'] + ' mph')
+                else:
+                    wind_string = 'n/a'
+
+            if 'windchill_string' in noaa_result:
+                windchill_string = string.lower('wchill: ' + noaa_result['windchill_string'])
+            else:
+                # fallback
+                if 'dewpoint_string' in noaa_result:
+                    windchill_string = string.lower('dewpnt: ' + noaa_result['dewpoint_string'])
+                else:
+                    windchill_string = 'n/a'
+
+            self.lcdUtils.backAndForth(wind_string, windchill_string, 1)
 
 
 # sample JSON return from noaa_result
@@ -82,8 +87,8 @@ class DisplayWeather:
 # 'location': u'Norwood, Norwood Memorial Airport, MA', 'dewpoint_c': u'-5.6', 'latitude': u'42.19083',
 # 'wind_mph': u'0.0', 'temp_f': u'24.0', 'temp_c': u'-4.4', 'pressure_string': u'1002.2 mb', 'station_id': u'KOWD',
 # 'wind_string': u'Calm', 'pressure_in': u'29.59', 'temperature_string': u'24.0 F (-4.4 C)',
-#  'two_day_history_url': u'http://www.weather.gov/data/obhistory/KOWD.html', 'wind_dir': u'North', 'wind_degrees': u'0',
-#  'icon_url_base': u'http://forecast.weather.gov/images/wtf/small/',
-#  'observation_time': u'Last Updated on Feb 14 2015, 6:53 pm EST', 'longitude': u'-71.17389',
-#  'suggested_pickup': u'15 minutes after the hour', 'relative_humidity': u'91',
+# 'two_day_history_url': u'http://www.weather.gov/data/obhistory/KOWD.html', 'wind_dir': u'North', 'wind_degrees': u'0',
+# 'icon_url_base': u'http://forecast.weather.gov/images/wtf/small/',
+# 'observation_time': u'Last Updated on Feb 14 2015, 6:53 pm EST', 'longitude': u'-71.17389',
+# 'suggested_pickup': u'15 minutes after the hour', 'relative_humidity': u'91',
 #  'observation_time_rfc822': u'Sat, 14 Feb 2015 18:53:00 -0500'}

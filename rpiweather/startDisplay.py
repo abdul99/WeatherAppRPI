@@ -67,11 +67,11 @@ def option0():
 
 
 def option1():
-    view_weather.run()
+    view_weather.run(1)
 
 
 def option2():
-    view_weather.run2()
+    view_weather.run(2)
 
 
 def option3():

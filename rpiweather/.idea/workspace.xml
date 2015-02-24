@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1c420a2-7866-4fdf-b3a0-beb1566361f2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/displayTime.py" afterPath="$PROJECT_DIR$/displayTime.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/displayUtils.py" afterPath="$PROJECT_DIR$/displayUtils.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/displayWeather.py" afterPath="$PROJECT_DIR$/displayWeather.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/rpiweather.iml" afterPath="$PROJECT_DIR$/.idea/rpiweather.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/startDisplay.py" afterPath="$PROJECT_DIR$/startDisplay.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="rpiweather.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,7 +29,7 @@
       <file leaf-file-name="displayTime.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/displayTime.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="18" max-vertical-offset="468">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
               <caret line="1" column="69" selection-start-line="1" selection-start-column="69" selection-end-line="1" selection-end-column="69" />
               <folding />
             </state>
@@ -55,28 +49,28 @@
       <file leaf-file-name="displayWeather.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/displayWeather.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1638">
-              <caret line="0" column="19" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1728">
+              <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="displayUtils.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="displayUtils.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/displayUtils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33515882" vertical-offset="0" max-vertical-offset="1098">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1098">
               <caret line="17" column="46" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="startDisplay.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="startDisplay.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/startDisplay.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1121" max-vertical-offset="2088">
-              <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.21139102" vertical-offset="1121" max-vertical-offset="2088">
+              <caret line="73" column="22" selection-start-line="73" selection-start-column="22" selection-end-line="73" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -95,8 +89,9 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/startDisplay.py" />
         <option value="$PROJECT_DIR$/displayUtils.py" />
+        <option value="$PROJECT_DIR$/displayWeather.py" />
+        <option value="$PROJECT_DIR$/startDisplay.py" />
       </list>
     </option>
   </component>
@@ -597,26 +592,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/startDisplay.py">
+    <entry file="file://$PROJECT_DIR$/displayUtils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1121" max-vertical-offset="2088">
-          <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1098">
+          <caret line="17" column="46" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/displayWeather.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1440">
-          <caret line="0" column="19" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1728">
+          <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/displayUtils.py">
+    <entry file="file://$PROJECT_DIR$/startDisplay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33515882" vertical-offset="0" max-vertical-offset="1098">
-          <caret line="17" column="46" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.21139102" vertical-offset="1121" max-vertical-offset="2088">
+          <caret line="73" column="22" selection-start-line="73" selection-start-column="22" selection-end-line="73" selection-end-column="22" />
           <folding />
         </state>
       </provider>
