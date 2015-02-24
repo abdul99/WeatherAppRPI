@@ -35,11 +35,12 @@ class DisplayWeather:
             temp_string = 'n/a'
 
         # use my util class to display nicely
-        self.lcdUtils.backAndForth(weather_string, temp_string, 2)
+        self.lcdUtils.backAndForth(weather_string, temp_string, 1)
 
+    def run2(self):
+        ## PAGE 2
         self.lcd.clear()
 
-        ## PAGE 2
         # pull out more data
         if 'wind_string' in noaa_result:
             wind_string = string.lower('wind: ' + noaa_result['wind_string'])
@@ -60,7 +61,7 @@ class DisplayWeather:
             else:
                 windchill_string = 'n/a'
 
-        self.lcdUtils.backAndForth(wind_string, windchill_string, 2)
+        self.lcdUtils.backAndForth(wind_string, windchill_string, 1)
 
 
 # sample JSON return from noaa_result

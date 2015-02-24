@@ -11,7 +11,7 @@ class DisplayTime:
         self.lcd = lcd
 
     def run(self, seconds):
-        self.lcd.clear()
+        # self.lcd.clear()
         while seconds > 0:
             self.lcd.home()
             self.lcd.message(strftime("%H:%M:%S") + '\n' + strftime("%Y-%m-%d"))

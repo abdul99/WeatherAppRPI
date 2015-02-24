@@ -5,7 +5,7 @@ import time
 
 class DisplayUtils:
     lcd = None
-    scrollSpeed = 0.5
+    scrollSpeed = 0.3
     pauseTime = 2.0
 
 

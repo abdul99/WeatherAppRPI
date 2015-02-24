@@ -71,25 +71,30 @@ def option1():
 
 
 def option2():
+    view_weather.run2()
+
+
+def option3():
     view_info.run(1)
 
 
 options = {0: option0,
            1: option1,
-           2: option2}
+           2: option2,
+           3: option3}
 
 position = 0  # default starting position
 
 while True:
 
-    if GPIO.event_detected(btn1):
+    if GPIO.event_detected(btn2):
         position = position - 1
         if position < 0:
-            position = 2
+            position = 3
 
-    if GPIO.event_detected(btn2):
+    if GPIO.event_detected(btn1):
         position = position + 1
-        if position > 2:
+        if position > 3:
             position = 0
 
     options[position]()
