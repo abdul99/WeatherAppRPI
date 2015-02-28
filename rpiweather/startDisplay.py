@@ -5,9 +5,10 @@ __author__ = 'mike'
 
 import Adafruit_CharLCD as LCD
 import RPi.GPIO as GPIO
-from displayTime import DisplayTime
+from displayTime import display_time
 from displayWeather import DisplayWeather
 from displayInfo import DisplayInfo
+from thread import start_new_thread
 
 
 # Raspberry Pi pin configuration:
@@ -49,59 +50,92 @@ GPIO.add_event_detect(btn2, GPIO.RISING, bouncetime=200)
 # GPIO.output(led1,True) ## turn on by default
 # GPIO.output(led2,True)
 
-
-# Display objects
-view_time = DisplayTime(lcd)
-view_weather = DisplayWeather(lcd)
-view_info = DisplayInfo(lcd)
-
 # Turn on LEDs
 led1ON = True
 led2ON = True
 GPIO.output(led1, led1ON)
 GPIO.output(led2, led2ON)
 
-# This pages through the different screen info pages
-def option0():
-    view_time.run(1)
+displayTimeLocked = True
 
 
-def option1():
-    view_weather.run(1)
+def display_time(lcd):
+    lcd.clear()
+    while True:
+        if not displayTimeLocked:
+            lcd.home()
+            lcd.message(strftime("%H:%M:%S") + '\n' + strftime("%Y-%m-%d"))
+        time.sleep(1.0)
+        
+
+displayCrapLocked = False
 
 
-def option2():
-    view_weather.run(2)
+def display_crap(lcd):
+    lcd.clear()
+    while True:
+        if not displayCrapLocked:
+            lcd.home()
+            lcd.message('blah blah')
+        time.sleep(1.0)
 
 
-def option3():
-    view_info.run(1)
-
-
-options = {0: option0,
-           1: option1,
-           2: option2,
-           3: option3}
-
-position = 0  # default starting position
+start_new_thread(display_time(lcd))
+start_new_thread(display_crap(lcd))
 
 while True:
-
     if GPIO.event_detected(btn2):
-        position = position - 1
-        if position < 0:
-            position = 3
+        displayTimeLocked = not displayTimeLocked
+        displayCrapLocked = not displayCrapLocked
 
-    if GPIO.event_detected(btn1):
-        position = position + 1
-        if position > 3:
-            position = 0
 
-    options[position]()
+        # Display threads
 
-    # view_time.run(10)
-    # view_weather.run()
-    # view_info.run(10)
+        # view_time = DisplayTime(lcd)
+        # view_weather = DisplayWeather(lcd)
+        # view_info = DisplayInfo(lcd)
+
+        # This pages through the different screen info pages
+        # def option0():
+        # view_time.run(1)
+        #
+        #
+        # def option1():
+        # view_weather.run(1)
+        #
+        #
+        # def option2():
+        #     view_weather.run(2)
+        #
+        #
+        # def option3():
+        #     view_info.run(1)
+        #
+        #
+        # options = {0: option0,
+        #            1: option1,
+        #            2: option2,
+        #            3: option3}
+        #
+        # position = 0  # default starting position
+        #
+        # while True:
+        #
+        #     if GPIO.event_detected(btn2):
+        #         position = position - 1
+        #         if position < 0:
+        #             position = 3
+        #
+        #     if GPIO.event_detected(btn1):
+        #         position = position + 1
+        #         if position > 3:
+        #             position = 0
+
+        # options[position]()
+
+        # view_time.run(10)
+        # view_weather.run()
+        # view_info.run(10)
 
 
 
