@@ -5,10 +5,12 @@ __author__ = 'mike'
 
 import Adafruit_CharLCD as LCD
 import RPi.GPIO as GPIO
-from displayTime import display_time
+#from displayTime import display_time
+import time
+from time import strftime
 from displayWeather import DisplayWeather
 from displayInfo import DisplayInfo
-from thread import start_new_thread
+import thread 
 
 
 # Raspberry Pi pin configuration:
@@ -62,10 +64,11 @@ displayTimeLocked = True
 def display_time(lcd):
     lcd.clear()
     while True:
+	print "time"
         if not displayTimeLocked:
             lcd.home()
             lcd.message(strftime("%H:%M:%S") + '\n' + strftime("%Y-%m-%d"))
-        time.sleep(1.0)
+        time.sleep(0.1)
         
 
 displayCrapLocked = False
@@ -74,17 +77,19 @@ displayCrapLocked = False
 def display_crap(lcd):
     lcd.clear()
     while True:
+	print "crap"
         if not displayCrapLocked:
             lcd.home()
             lcd.message('blah blah')
-        time.sleep(1.0)
+        time.sleep(0.1)
 
-
-start_new_thread(display_time(lcd))
-start_new_thread(display_crap(lcd))
+thread.start_new_thread(display_time,(lcd,))
+thread.start_new_thread(display_crap,(lcd,))
 
 while True:
     if GPIO.event_detected(btn2):
+	lcd.clear()
+	print "invert"
         displayTimeLocked = not displayTimeLocked
         displayCrapLocked = not displayCrapLocked
 
