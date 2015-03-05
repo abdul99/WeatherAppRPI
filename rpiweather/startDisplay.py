@@ -5,7 +5,7 @@ __author__ = 'mike'
 
 import Adafruit_CharLCD as LCD
 import RPi.GPIO as GPIO
-#from displayTime import display_time
+# from displayTime import display_time
 import time
 from time import strftime
 from displayWeather import DisplayWeather
@@ -62,66 +62,66 @@ GPIO.output(led2, led2ON)
 
 
 ### TIME THREAD ###
-displayTimeLocked = True
+displayTimeLock = True
+
 
 def display_time(lcd):
     lcd.clear()
     while True:
         print "time"
-        if not displayTimeLocked:
+        if displayTimeLock:
             lcd.home()
             lcd.message(strftime("%H:%M:%S") + '\n' + strftime("%Y-%m-%d"))
         time.sleep(0.01)
 
 ### IP THREAD ###
-displayInfoLocked = False
+displayInfoLock = False
+
 
 def get_ip_address(self, ifname):
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        return socket.inet_ntoa(fcntl.ioctl(
-            s.fileno(),
-            0x8915,  # SIOCGIFADDR
-            struct.pack('256s', ifname[:15])
-        )[20:24])
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    return socket.inet_ntoa(fcntl.ioctl(
+        s.fileno(),
+        0x8915,  # SIOCGIFADDR
+        struct.pack('256s', ifname[:15])
+    )[20:24])
+
 
 def display_ip(lcd):
+    lcd.clear()
     while True:
         print "ip"
         try:
+            ip_string = ''
             print get_ip_address('wlan0')
             ip_string = get_ip_address('wlan0')
+            if displayInfoLock:
+                lcd.message('ip: ' + ip_string)
         except IOError:
-            print 'no such device: wlan0'
             # failover
             try:
                 print "ip: " + get_ip_address('eth0')
                 ip_string = get_ip_address('eth0')
+                if displayInfoLock:
+                    lcd.message('ip: ' + ip_string)
             except IOError:
-                ip_string = ''
-                print 'no such device: eth0'
-
-        # print results
-        if ip_string == '':
-            if displayInfoLocked:
-                lcd.message('No Connection')
-        else:
-            if displayInfoLocked:
-                lcd.message('ip: ' + self.ip_string)
+                if displayInfoLock:
+                    lcd.message('No Connection')
 
         time.sleep(0.01)
 
 
 # start threads with the same lcd reference.
-thread.start_new_thread(display_time,(lcd,))
-thread.start_new_thread(display_ip,(lcd,))
+thread.start_new_thread(display_time, (lcd,))
+thread.start_new_thread(display_ip, (lcd,))
 
 ## DRIVER THREAD ##
 while True:
     if GPIO.event_detected(btn2):
         lcd.clear()
         print "invert"
-        displayTimeLocked = not displayTimeLocked
-        displayInfoLocked = not displayInfoLocked
+        displayTimeLock = not displayTimeLock
+        displayInfoLock = not displayInfoLock
 
 
 
