@@ -96,6 +96,7 @@ def display_ip(lcd):
             print get_ip_address('wlan0')
             ip_string = get_ip_address('wlan0')
             if displayInfoLock:
+                lcd.home()
                 lcd.message('ip: ' + ip_string)
         except IOError:
             # failover
@@ -103,9 +104,11 @@ def display_ip(lcd):
                 print "ip: " + get_ip_address('eth0')
                 ip_string = get_ip_address('eth0')
                 if displayInfoLock:
+                    lcd.home()
                     lcd.message('ip: ' + ip_string)
             except IOError:
                 if displayInfoLock:
+                    lcd.home()
                     lcd.message('No Connection')
 
         time.sleep(0.1)
