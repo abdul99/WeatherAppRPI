@@ -72,7 +72,7 @@ def display_time(lcd):
         if displayTimeLock:
             lcd.home()
             lcd.message(strftime("%H:%M:%S") + '\n' + strftime("%Y-%m-%d"))
-        time.sleep(0.01)
+        time.sleep(0.1)
 
 ### IP THREAD ###
 displayInfoLock = False
@@ -108,7 +108,7 @@ def display_ip(lcd):
                 if displayInfoLock:
                     lcd.message('No Connection')
 
-        time.sleep(0.01)
+        time.sleep(0.1)
 
 
 # start threads with the same lcd reference.
