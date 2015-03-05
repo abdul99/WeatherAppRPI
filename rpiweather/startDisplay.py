@@ -78,7 +78,7 @@ def display_time(lcd):
 displayInfoLock = False
 
 
-def get_ip_address(self, ifname):
+def get_ip_address(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     return socket.inet_ntoa(fcntl.ioctl(
         s.fileno(),
