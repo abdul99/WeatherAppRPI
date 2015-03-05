@@ -11,7 +11,9 @@ from time import strftime
 from displayWeather import DisplayWeather
 from displayInfo import DisplayInfo
 import thread
-
+import socket
+import fcntl
+import struct
 
 # Raspberry Pi pin configuration:
 lcd_rs = 22  # Note this might need to be changed to 21 for older revision Pi's.
@@ -69,6 +71,7 @@ def display_time(lcd):
         if not displayTimeLocked:
             lcd.home()
             lcd.message(strftime("%H:%M:%S") + '\n' + strftime("%Y-%m-%d"))
+        time.sleep(0.01)
 
 ### IP THREAD ###
 displayInfoLocked = False
@@ -83,29 +86,29 @@ def get_ip_address(self, ifname):
 
 def display_ip(lcd):
     while True:
+        print "ip"
         try:
-            ip_string = ''
-            print self.get_ip_address('wlan0')
-            ip_string = self.get_ip_address('wlan0')
+            print get_ip_address('wlan0')
+            ip_string = get_ip_address('wlan0')
         except IOError:
-            ip_string = ''
             print 'no such device: wlan0'
-
             # failover
             try:
-                print "ip: " + self.get_ip_address('eth0')
-                ip_string = self.get_ip_address('eth0')
+                print "ip: " + get_ip_address('eth0')
+                ip_string = get_ip_address('eth0')
             except IOError:
                 ip_string = ''
                 print 'no such device: eth0'
 
         # print results
         if ip_string == '':
-            lcd.message('No Connection')
+            if displayInfoLocked:
+                lcd.message('No Connection')
         else:
-            if(displayInfoLocked):
+            if displayInfoLocked:
                 lcd.message('ip: ' + self.ip_string)
 
+        time.sleep(0.01)
 
 
 # start threads with the same lcd reference.
