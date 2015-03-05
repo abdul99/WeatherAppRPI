@@ -10,7 +10,7 @@ import time
 from time import strftime
 from displayWeather import DisplayWeather
 from displayInfo import DisplayInfo
-import thread 
+import thread
 
 
 # Raspberry Pi pin configuration:
@@ -58,89 +58,68 @@ led2ON = True
 GPIO.output(led1, led1ON)
 GPIO.output(led2, led2ON)
 
-displayTimeLocked = True
 
+### TIME THREAD ###
+displayTimeLocked = True
 
 def display_time(lcd):
     lcd.clear()
     while True:
-	print "time"
+        print "time"
         if not displayTimeLocked:
             lcd.home()
             lcd.message(strftime("%H:%M:%S") + '\n' + strftime("%Y-%m-%d"))
-        time.sleep(0.1)
-        
 
-displayCrapLocked = False
+### IP THREAD ###
+displayInfoLocked = False
 
+def get_ip_address(self, ifname):
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        return socket.inet_ntoa(fcntl.ioctl(
+            s.fileno(),
+            0x8915,  # SIOCGIFADDR
+            struct.pack('256s', ifname[:15])
+        )[20:24])
 
-def display_crap(lcd):
-    lcd.clear()
+def display_ip(lcd):
     while True:
-	print "crap"
-        if not displayCrapLocked:
-            lcd.home()
-            lcd.message('blah blah')
-        time.sleep(0.1)
+        try:
+            ip_string = ''
+            print self.get_ip_address('wlan0')
+            ip_string = self.get_ip_address('wlan0')
+        except IOError:
+            ip_string = ''
+            print 'no such device: wlan0'
 
+            # failover
+            try:
+                print "ip: " + self.get_ip_address('eth0')
+                ip_string = self.get_ip_address('eth0')
+            except IOError:
+                ip_string = ''
+                print 'no such device: eth0'
+
+        # print results
+        if ip_string == '':
+            lcd.message('No Connection')
+        else:
+            if(displayInfoLocked):
+                lcd.message('ip: ' + self.ip_string)
+
+
+
+# start threads with the same lcd reference.
 thread.start_new_thread(display_time,(lcd,))
-thread.start_new_thread(display_crap,(lcd,))
+thread.start_new_thread(display_ip,(lcd,))
 
+## DRIVER THREAD ##
 while True:
     if GPIO.event_detected(btn2):
-	lcd.clear()
-	print "invert"
+        lcd.clear()
+        print "invert"
         displayTimeLocked = not displayTimeLocked
-        displayCrapLocked = not displayCrapLocked
+        displayInfoLocked = not displayInfoLocked
 
-
-        # Display threads
-
-        # view_time = DisplayTime(lcd)
-        # view_weather = DisplayWeather(lcd)
-        # view_info = DisplayInfo(lcd)
-
-        # This pages through the different screen info pages
-        # def option0():
-        # view_time.run(1)
-        #
-        #
-        # def option1():
-        # view_weather.run(1)
-        #
-        #
-        # def option2():
-        #     view_weather.run(2)
-        #
-        #
-        # def option3():
-        #     view_info.run(1)
-        #
-        #
-        # options = {0: option0,
-        #            1: option1,
-        #            2: option2,
-        #            3: option3}
-        #
-        # position = 0  # default starting position
-        #
-        # while True:
-        #
-        #     if GPIO.event_detected(btn2):
-        #         position = position - 1
-        #         if position < 0:
-        #             position = 3
-        #
-        #     if GPIO.event_detected(btn1):
-        #         position = position + 1
-        #         if position > 3:
-        #             position = 0
-
-        # options[position]()
-
-        # view_time.run(10)
-        # view_weather.run()
-        # view_info.run(10)
 
 
 
