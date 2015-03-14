@@ -1,6 +1,7 @@
 # custom lcd utilities for rpi connected LCD
 __author__ = 'mike'
 import time
+import utils
 
 
 class DisplayUtils:

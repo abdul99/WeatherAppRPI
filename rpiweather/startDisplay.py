@@ -1,19 +1,16 @@
 #!/usr/bin/python
-from operator import pos
-
 __author__ = 'mike'
 
 import Adafruit_CharLCD as LCD
 import RPi.GPIO as GPIO
-# from displayTime import display_time
 import time
-from time import strftime
-from displayWeather import DisplayWeather
-from displayInfo import DisplayInfo
-import thread
-import socket
-import fcntl
-import struct
+import utils
+import displayTime
+import displayInfo
+import displayWeather
+
+# Initalize global variables only once
+utils.init()
 
 # Raspberry Pi pin configuration:
 lcd_rs = 22  # Note this might need to be changed to 21 for older revision Pi's.
@@ -34,14 +31,21 @@ lcd = LCD.Adafruit_CharLCD(lcd_rs, lcd_en, lcd_d4, lcd_d5, lcd_d6, lcd_d7, lcd_c
 # MUST USE BCM SCHEME FOR P5 HEADER
 GPIO.setmode(GPIO.BCM)
 
-# p5 header pins on the rpi
+# p5 header pins on the rpi (buttons and leds)
 led1 = 29
 led2 = 28
-btn1 = 30
-btn2 = 31
+btn1 = 31
+btn2 = 30
+
 # LEDS are OUTPUTS
 GPIO.setup(led1, GPIO.OUT)
 GPIO.setup(led2, GPIO.OUT)
+
+# Turn on LEDs
+led1ON = True
+led2ON = True
+GPIO.output(led1, led1ON)
+GPIO.output(led2, led2ON)
 
 # BTNS are INPUTS. they are setup to pull down
 GPIO.setup(btn1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
@@ -51,84 +55,46 @@ GPIO.setup(btn2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.add_event_detect(btn1, GPIO.RISING, bouncetime=200)
 GPIO.add_event_detect(btn2, GPIO.RISING, bouncetime=200)
 
-# GPIO.output(led1,True) ## turn on by default
-# GPIO.output(led2,True)
+# Create threads
+timeThread = displayTime.DisplayTime(1, "TimeThread")
+ipThread = displayInfo.DisplayInfo(2, "IpThread")
+weatherThread = displayWeather.DisplayWeather(3, "WeatherThread")
 
-# Turn on LEDs
-led1ON = True
-led2ON = True
-GPIO.output(led1, led1ON)
-GPIO.output(led2, led2ON)
+# Start threads
+timeThread.start()
+ipThread.start()
+weatherThread.start()
 
-
-### TIME THREAD ###
-displayTimeLock = True
-
-
-def display_time(lcd):
-    lcd.clear()
-    while True:
-        print "time"
-        if displayTimeLock:
-            lcd.home()
-            lcd.message(strftime("%H:%M:%S") + '\n' + strftime("%Y-%m-%d"))
-        time.sleep(0.1)
-
-### IP THREAD ###
-displayInfoLock = False
+### Consumer thread ###
+messageList = ["", "", "", ""]  # cant index an empty array
+currentThread = 1
 
 
-def get_ip_address(ifname):
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    return socket.inet_ntoa(fcntl.ioctl(
-        s.fileno(),
-        0x8915,  # SIOCGIFADDR
-        struct.pack('256s', ifname[:15])
-    )[20:24])
+def updateDisplay(message):
+    messageList[message.id - 1] = message.message
 
 
-def display_ip(lcd):
-    lcd.clear()
-    while True:
-        print "ip"
-        try:
-            ip_string = ''
-            print get_ip_address('wlan0')
-            ip_string = get_ip_address('wlan0')
-            if displayInfoLock:
-                lcd.home()
-                lcd.message('ip: ' + ip_string)
-        except IOError:
-            # failover
-            try:
-                print "ip: " + get_ip_address('eth0')
-                ip_string = get_ip_address('eth0')
-                if displayInfoLock:
-                    lcd.home()
-                    lcd.message('ip: ' + ip_string)
-            except IOError:
-                if displayInfoLock:
-                    lcd.home()
-                    lcd.message('No Connection')
-
-        time.sleep(0.1)
-
-
-# start threads with the same lcd reference.
-thread.start_new_thread(display_time, (lcd,))
-thread.start_new_thread(display_ip, (lcd,))
-
-## DRIVER THREAD ##
 while True:
-    if GPIO.event_detected(btn2):
+    utils.queueLock.acquire()
+    dequeueMessage = utils.lcdQueue.dequeue()
+    utils.queueLock.release()
+    if dequeueMessage != None:
+        # update the array of messages to track slower threads
+        updateDisplay(dequeueMessage)
+
+        # display what we have
+        lcd.home()
+        if currentThread == 3:
+            # workaround for multi line display
+            # TODO: this needs a real fix
+            lines = messageList[currentThread - 1].split(',',1) # split at first ,
+            lcd.message(lines[0]+'\n'+lines[1])
+        else:
+            lcd.message(messageList[currentThread - 1])
+
+    if GPIO.event_detected(btn1):
         lcd.clear()
-        print "invert"
-        displayTimeLock = not displayTimeLock
-        displayInfoLock = not displayInfoLock
-
-
-
-
-
-
-
+        # print "switching screens"
+        currentThread += 1
+        if currentThread > 3:
+            currentThread = 1

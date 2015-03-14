@@ -1,27 +1,22 @@
 __author__ = 'mike'
 # Display the weather from NOAA to the connected lcd
-from numpy.core.tests.test_numerictypes import test_create_values_nested_multiple
+# from numpy.core.tests.test_numerictypes import test_create_values_nested_multiple
+import threading
 import pywapi
 import string
 import time
-from displayUtils import DisplayUtils
+import utils
+import message
 
 
-class DisplayWeather:
-    lcd = None
-    lcdUtils = None
+class DisplayWeather(threading.Thread):
+    def __init__(self, threadID, name):
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.name = name
 
-    def __init__(self, lcd):
-        self.lcd = lcd
-        self.lcdUtils = DisplayUtils(lcd)
-
-    def run(self, page):
-        # request NOAA weather data
-        noaa_result = pywapi.get_weather_from_noaa('KOWD')
-        print(noaa_result)
-
-        if page == 1:
-            self.lcd.clear()
+    def run(self):
+        while True:
 
             # request NOAA weather data
             noaa_result = pywapi.get_weather_from_noaa('KOWD')
@@ -39,34 +34,37 @@ class DisplayWeather:
             else:
                 temp_string = 'n/a'
 
-            # use my util class to display nicely
-            self.lcdUtils.backAndForth(weather_string, temp_string, 1)
+            # aquire write lock to queue and put messages on queue
+            utils.queueLock.acquire()
+            lcdQueueMessage = message.Message(self.threadID, weather_string+','+temp_string)
+            utils.lcdQueue.enqueue(lcdQueueMessage)
+            utils.queueLock.release()
 
-        if page == 2:
-            # # PAGE 2
-            self.lcd.clear()
+            # every 10 minutes
+            time.sleep(600)
 
-            # pull out more data
-            if 'wind_string' in noaa_result:
-                wind_string = string.lower('wind: ' + noaa_result['wind_string'])
-            else:
-                # fallback
-                if 'wind_mph' and 'wind_dir' in noaa_result:
-                    wind_string = string.lower(
-                        'wind: ' + noaa_result['wind_dir'] + " at " + noaa_result['wind_mph'] + ' mph')
-                else:
-                    wind_string = 'n/a'
-
-            if 'windchill_string' in noaa_result:
-                windchill_string = string.lower('wchill: ' + noaa_result['windchill_string'])
-            else:
-                # fallback
-                if 'dewpoint_string' in noaa_result:
-                    windchill_string = string.lower('dewpnt: ' + noaa_result['dewpoint_string'])
-                else:
-                    windchill_string = 'n/a'
-
-            self.lcdUtils.backAndForth(wind_string, windchill_string, 1)
+            # if page == 2:
+            # # pull out more data
+            #     if 'wind_string' in noaa_result:
+            #         wind_string = string.lower('wind: ' + noaa_result['wind_string'])
+            #     else:time.sleep(60)
+            #         # fallback
+            #         if 'wind_mph' and 'wind_dir' in noaa_result:
+            #             wind_string = string.lower(
+            #                 'wind: ' + noaa_result['wind_dir'] + " at " + noaa_result['wind_mph'] + ' mph')
+            #         else:
+            #             wind_string = 'n/a'
+            #
+            #     if 'windchill_string' in noaa_result:
+            #         windchill_string = string.lower('wchill: ' + noaa_result['windchill_string'])
+            #     else:
+            #         # fallback
+            #         if 'dewpoint_string' in noaa_result:
+            #             windchill_string = string.lower('dewpnt: ' + noaa_result['dewpoint_string'])
+            #         else:
+            #             windchill_string = 'n/a'
+            #
+            #     self.lcdUtils.backAndForth(wind_string, windchill_string, 1)
 
 
 # sample JSON return from noaa_result
@@ -91,4 +89,4 @@ class DisplayWeather:
 # 'icon_url_base': u'http://forecast.weather.gov/images/wtf/small/',
 # 'observation_time': u'Last Updated on Feb 14 2015, 6:53 pm EST', 'longitude': u'-71.17389',
 # 'suggested_pickup': u'15 minutes after the hour', 'relative_humidity': u'91',
-#  'observation_time_rfc822': u'Sat, 14 Feb 2015 18:53:00 -0500'}
+# 'observation_time_rfc822': u'Sat, 14 Feb 2015 18:53:00 -0500'}

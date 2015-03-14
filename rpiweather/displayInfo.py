@@ -1,20 +1,23 @@
 __author__ = 'mike'
-# get the current connected ip address and display it to the connected lcd
+# get the current connected ip address
 
+import threading
 import socket
 import fcntl
 import struct
 import time
+import utils
+import message
 
 
-class DisplayInfo:
-    lcd = None
-    ip_string = ''
+class DisplayInfo(threading.Thread):
+    def __init__(self, threadID, name):
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.name = name
 
-    def __init__(self, lcd):
-        self.lcd = lcd
-
-    def get_ip_address(self, ifname):
+    @staticmethod
+    def get_ip_address(ifname):
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         return socket.inet_ntoa(fcntl.ioctl(
             s.fileno(),
@@ -22,27 +25,30 @@ class DisplayInfo:
             struct.pack('256s', ifname[:15])
         )[20:24])
 
-    def run(self, seconds):
-        self.lcd.clear()
-        try:
-            self.ip_string = ''
-            print self.get_ip_address('wlan0')
-            self.ip_string = self.get_ip_address('wlan0')
-        except IOError:
-            self.ip_string = ''
-            print 'no such device: wlan0'
-
-            # failover
+    def run(self):
+        while True:
             try:
-                print "ip: " + self.get_ip_address('eth0')
-                self.ip_string = self.get_ip_address('eth0')
+                ip_string = self.get_ip_address('wlan0')
             except IOError:
-                self.ip_string = ''
-                print 'no such device: eth0'
 
-        # print results
-        if self.ip_string == '':
-            self.lcd.message('No Connections')
-        else:
-            self.lcd.message('ip: ' + self.ip_string)
-        time.sleep(seconds)
+                # failover to eth0
+                try:
+                    ip_string = self.get_ip_address('eth0')
+                except IOError:
+                    ip_string = ''
+
+            # results
+            if ip_string == '':
+                # no connections found
+                utils.queueLock.acquire()
+                lcdQueueMessage = message.Message(self.threadID, 'No Connections')
+                utils.lcdQueue.enqueue(lcdQueueMessage)
+                utils.queueLock.release()
+            else:
+                # found a connection
+                utils.queueLock.acquire()
+                lcdQueueMessage = message.Message(self.threadID, ip_string)
+                utils.lcdQueue.enqueue(lcdQueueMessage)
+                utils.queueLock.release()
+
+            time.sleep(10)
